@@ -94,7 +94,9 @@ class CalendarDateView : ViewPager {
     }
 
     fun setOnDayClickListener(listener: ((CalendarBean) -> Unit)) {
-        dayClickListener = listener
+        dayClickListener = {
+            listener.invoke(it)
+        }
     }
 
     fun toggle() {
