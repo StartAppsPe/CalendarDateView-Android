@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="cbd_calendar_row" format="integer" />
+    <declare-styleable name="CalendarDateView">
+        <attr name="calendar_day_color" format="color" />
+        <attr name="calendar_selected_day_color" format="color" />
+        <attr name="calendar_first_day_of_week" format="enum">
+            <enum name="sunday" value="1"/>
+            <enum name="monday" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
