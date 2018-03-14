@@ -1,11 +1,10 @@
-package pe.startapps.calendardateview.calendar
+package pe.startapps.calendardateview
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
-import pe.startapps.calendardateview.R
-import pe.startapps.calendardateview.utils.inflate
+import pe.startapps.calendardateview.extensions.inflate
 
 /**
  * Created by kevin.

@@ -1,4 +1,4 @@
-package pe.startapps.calendardateview.calendar
+package pe.startapps.calendardateview
 
 import android.content.Context
 import android.util.AttributeSet

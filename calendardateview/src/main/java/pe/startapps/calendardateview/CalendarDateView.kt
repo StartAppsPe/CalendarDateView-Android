@@ -1,4 +1,4 @@
-package pe.startapps.calendardateview.calendar
+package pe.startapps.calendardateview
 
 import android.content.Context
 import android.graphics.Color
@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import pe.startapps.calendardateview.R
 import java.util.*
 import kotlin.properties.Delegates
 

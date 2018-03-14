@@ -1,4 +1,4 @@
-package pe.startapps.calendardateview.calendar
+package pe.startapps.calendardateview
 
 /**
  * Created by kevin.

@@ -1,6 +1,6 @@
-package pe.startapps.calendardateview.calendar
+package pe.startapps.calendardateview
 
-import pe.startapps.calendardateview.utils.*
+import pe.startapps.calendardateview.extensions.*
 import java.util.*
 
 /**
