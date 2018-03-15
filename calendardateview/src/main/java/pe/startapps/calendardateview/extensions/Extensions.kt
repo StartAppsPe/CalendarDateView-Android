@@ -3,17 +3,15 @@ package pe.startapps.calendardateview.extensions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import pe.startapps.calendardateview.CalendarBean
 import java.util.*
 
 /**
  * Created by kevin.
  */
 
-// View Extensions
 
-internal fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
-    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-}
+internal val currentBean get() = Calendar.getInstance().let { CalendarBean(it.dayOfMonth, it.month, it.year) }
 
 // Calendar Extensions
 
@@ -37,4 +35,10 @@ internal fun Calendar.firstDayWeekOfMonth(): Int {
 internal fun Calendar.dateByAddingMonths(months: Int): Calendar {
     add(Calendar.MONTH, months)
     return this
+}
+
+// View Extensions
+
+internal fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }

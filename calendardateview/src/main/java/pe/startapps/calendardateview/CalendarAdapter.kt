@@ -9,7 +9,7 @@ import pe.startapps.calendardateview.extensions.inflate
 /**
  * Created by kevin.
  */
-class CalendarAdapter(val items: List<CalendarBean>, val dayClickListener: ((CalendarBean) -> Unit)?) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
+class CalendarAdapter(val items: List<CalendarBean>, val dayClickListener: ((CalendarBean) -> Unit)?, var currentDate: CalendarBean) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
 
@@ -18,30 +18,31 @@ class CalendarAdapter(val items: List<CalendarBean>, val dayClickListener: ((Cal
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position], dayClickListener)
-    }
+        val calendarBean = items[position]
+        with(holder.itemView) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            tvDay.isSelected = calendarBean.isSameDay(currentDate)
 
-        fun bind(calendarBean: CalendarBean, dayClickListener: ((CalendarBean) -> Unit)?) {
-            with(itemView) {
-                tvDay.text = calendarBean.dayOfMonth.toString()
-                when (calendarBean.offset) {
-                    1, -1 -> {
-                        tvDay.alpha = 0.5f
-                        tvDay.isEnabled = false
-                    }
-                    else  -> {
-                        tvDay.alpha = 1f
-                        tvDay.isEnabled = true
-                    }
+            tvDay.text = calendarBean.dayOfMonth.toString()
+
+            when (calendarBean.offset) {
+                1, -1 -> {
+                    tvDay.alpha = 0.5f
+                    tvDay.isEnabled = false
                 }
-                tvDay.setOnClickListener {
-                    dayClickListener?.invoke(calendarBean)
+                else  -> {
+                    tvDay.alpha = 1f
+                    tvDay.isEnabled = true
                 }
             }
-        }
 
+            tvDay.setOnClickListener {
+                dayClickListener?.invoke(calendarBean)
+            }
+
+        }
     }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 }
