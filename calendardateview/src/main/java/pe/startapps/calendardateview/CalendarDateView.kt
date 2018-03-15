@@ -18,6 +18,8 @@ import kotlin.properties.Delegates
  */
 class CalendarDateView : ViewPager {
 
+    var itemHeight: Int = 0
+
     private var dayColor: Int = Color.GRAY
     private var selectedDayColor: Int = Color.LTGRAY
     private var firstDayOfWeek: Int = 2
@@ -65,13 +67,13 @@ class CalendarDateView : ViewPager {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
-        val childHeight = widthMeasureSpec * 6 / 7
+        itemHeight = widthMeasureSpec * 6 / 7
 
         (0 until childCount).map { getChildAt(it) }.forEach { child ->
-            child.measure(widthMeasureSpec, childHeight)
+            child.measure(widthMeasureSpec, itemHeight)
         }
 
-        val heightSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY)
+        val heightSpec = MeasureSpec.makeMeasureSpec(itemHeight, MeasureSpec.EXACTLY)
 
         super.onMeasure(widthMeasureSpec, heightSpec)
     }

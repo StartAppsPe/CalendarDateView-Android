@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wrapper"
@@ -7,18 +7,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <pe.startapps.calendardateview.CalendarDateView
-        android:id="@+id/calendarDateView"
+    <pe.startapps.calendardateview.CalendarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:calendar_first_day_of_week="monday" />
+        android:layout_above="@+id/btnToggle">
+
+        <pe.startapps.calendardateview.CalendarDateView
+            android:id="@+id/calendarDateView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:calendar_first_day_of_week="monday" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dedede" />
+
+    </pe.startapps.calendardateview.CalendarLayout>
 
     <Button
         android:id="@+id/btnToggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:text="Toggle"
         tools:ignore="HardcodedText" />
 
-</FrameLayout>
+</RelativeLayout>
