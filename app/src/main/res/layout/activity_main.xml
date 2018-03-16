@@ -10,7 +10,8 @@
     <pe.startapps.calendardateview.CalendarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnToggle">
+        android:layout_above="@+id/btnToggle"
+        android:layout_alignParentTop="true">
 
         <pe.startapps.calendardateview.CalendarDateView
             android:id="@+id/calendarDateView"

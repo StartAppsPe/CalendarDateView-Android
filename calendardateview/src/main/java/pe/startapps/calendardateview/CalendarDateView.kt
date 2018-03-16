@@ -18,7 +18,9 @@ import kotlin.properties.Delegates
  */
 class CalendarDateView : ViewPager {
 
-    var itemHeight: Int = 0
+    var calendarHeight: Int = 0
+    var calendarItemHeight: Int = 0
+    var currentSelectPosition: IntArray = intArrayOf(0, 0, 0, 0)
 
     private var dayColor: Int = Color.GRAY
     private var selectedDayColor: Int = Color.LTGRAY
@@ -27,7 +29,7 @@ class CalendarDateView : ViewPager {
     private var dayClickListener: ((CalendarBean) -> Unit)? = null
 
     private var selectedBean by Delegates.observable(currentBean) { _, oldValue, newValue ->
-        calendarAdapters.values.forEach {
+        calendarViews.values.map { it.adapter as CalendarAdapter }.forEach {
             it.currentDate = newValue
             it.items.forEachIndexed { index, calendarBean ->
                 if (calendarBean.isSameDay(oldValue) || calendarBean.isSameDay(newValue)) {
@@ -37,7 +39,7 @@ class CalendarDateView : ViewPager {
         }
     }
 
-    private var calendarAdapters = mutableMapOf<Int, CalendarAdapter>()
+    private var calendarViews = mutableMapOf<Int, RecyclerView>()
 
     enum class Mode {
         Week,
@@ -45,7 +47,7 @@ class CalendarDateView : ViewPager {
     }
 
     var mode: Mode by Delegates.observable(Mode.Week) { _, _, _ ->
-        calendarAdapters.clear()
+        calendarViews.clear()
         adapter.notifyDataSetChanged()
     }
 
@@ -66,16 +68,18 @@ class CalendarDateView : ViewPager {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        itemHeight = widthMeasureSpec * 6 / 7
-
-        (0 until childCount).map { getChildAt(it) }.forEach { child ->
-            child.measure(widthMeasureSpec, itemHeight)
+        calendarHeight = 0
+        if (adapter != null) {
+            val view = getChildAt(0) as? RecyclerView
+            if (view != null) {
+                calendarHeight = view.measuredWidth * 6 / 7
+                calendarItemHeight = calendarHeight / 6
+            }
         }
+        setMeasuredDimension(widthMeasureSpec, View.MeasureSpec.makeMeasureSpec(calendarHeight, View.MeasureSpec.EXACTLY))
 
-        val heightSpec = MeasureSpec.makeMeasureSpec(itemHeight, MeasureSpec.EXACTLY)
-
-        super.onMeasure(widthMeasureSpec, heightSpec)
     }
 
     private fun setupAdapter() {
@@ -89,7 +93,7 @@ class CalendarDateView : ViewPager {
 
             override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
                 container.removeView(obj as View)
-                calendarAdapters.remove(position)
+                calendarViews.remove(position)
             }
 
             override fun isViewFromObject(view: View?, obj: Any) = view == obj
@@ -126,7 +130,7 @@ class CalendarDateView : ViewPager {
         recyclerView.itemAnimator.changeDuration = 0
         recyclerView.hasFixedSize()
 
-        calendarAdapters[position] = calendarAdapter
+        calendarViews[position] = recyclerView
 
         return recyclerView
     }

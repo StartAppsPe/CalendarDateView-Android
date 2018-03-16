@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <pe.startapps.calendardateview.CalendarDateView
+                android:id="@+id/calendarDateView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:calendar_first_day_of_week="monday" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#dedede" />
+
+        </FrameLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
