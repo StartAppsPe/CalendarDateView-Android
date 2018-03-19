@@ -9,7 +9,7 @@ import pe.startapps.calendardateview.extensions.inflate
 /**
  * Created by kevin.
  */
-class CalendarAdapter(val items: List<CalendarBean>, val dayClickListener: ((CalendarBean) -> Unit)?, var currentDate: CalendarBean) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
+class CalendarAdapter(var items: List<CalendarBean>, val dayClickListener: ((CalendarBean) -> Unit)?, var currentDate: CalendarBean) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
 

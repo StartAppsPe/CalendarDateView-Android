@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
             Log.e(":)", "${it.year} - ${it.month} - ${it.dayOfMonth}")
         }
         btnToggle.setOnClickListener {
-            calendarDateView.toggle()
+            calendarLayout.toggle()
         }
     }
 

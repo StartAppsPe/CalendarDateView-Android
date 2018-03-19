@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <pe.startapps.calendardateview.CalendarLayout
+        android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnToggle"
@@ -30,7 +31,6 @@
         android:id="@+id/btnToggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:text="Toggle"
         tools:ignore="HardcodedText" />
 
