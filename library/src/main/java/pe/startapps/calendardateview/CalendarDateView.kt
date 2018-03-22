@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import pe.startapps.calendardateview.extensions.*
@@ -40,8 +39,8 @@ class CalendarDateView : ViewPager {
         Month
     }
 
-    var mode: Mode by Delegates.observable(Mode.Week) { _, oldValue, newValue ->
-        onCalendarModeChanged(oldValue, newValue)
+    var mode: Mode by Delegates.observable(Mode.Week) { _, oldValue, _ ->
+        onCalendarModeChanged(oldValue)
     }
 
     var selectedBean by Delegates.observable(currentBean) { _, oldValue, newValue ->
@@ -149,13 +148,14 @@ class CalendarDateView : ViewPager {
         return selectePosition
     }
 
-    private fun onCalendarModeChanged(oldValue: Mode, newValue: Mode) {
+    private fun onCalendarModeChanged(oldValue: Mode) {
 
         var positions = 0
 
         when (oldValue) {
             Mode.Month -> {
                 (calendarViews[currentItem]?.adapter as? CalendarAdapter)?.let {
+
                     val bean = it.items.find { it.isSameDay(selectedBean) } ?: it.items.first()
 
                     val startBean = currentBean.toCalendar().midnight().startWeek(firstDayOfWeek)
@@ -169,13 +169,16 @@ class CalendarDateView : ViewPager {
             }
             Mode.Week  -> {
                 (calendarViews[currentItem]?.adapter as? CalendarAdapter)?.let {
+
                     val bean = it.items.find { it.isSameDay(selectedBean) } ?: it.items.first()
 
-                    val startBean = currentBean.toCalendar().midnight().startWeek(firstDayOfWeek)
-                    val endBean = bean.toCalendar().midnight().startWeek(firstDayOfWeek)
+                    val startBean = currentBean.toCalendar().midnight().startMonth()
+                    val endBean = bean.toCalendar().midnight().startMonth()
 
-                    val diffWeeks = startBean.intervalOfWeeks(endBean)
-                    Log.e(":)", "bean week $diffWeeks")
+                    val diffMonths = startBean.intervalOfMonth(endBean)
+
+                    positions = diffMonths
+
                 }
             }
         }

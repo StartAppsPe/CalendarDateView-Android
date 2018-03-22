@@ -2,7 +2,6 @@ package pe.startapps.calendardateview
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
@@ -64,7 +63,7 @@ class CalendarLayout : FrameLayout {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.e(":)", "onMeasure")
+
         calendarHeight = calendarView.calendarHeight
         calendarItemHeight = calendarView.calendarItemHeight
         maxDistance = calendarHeight - calendarItemHeight
@@ -79,7 +78,7 @@ class CalendarLayout : FrameLayout {
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        Log.e(":)", "onLayout")
+
         when (state) {
             State.EXPANDING -> {
                 calendarView.offsetTopAndBottom(-calendarView.getSelectedOffset())

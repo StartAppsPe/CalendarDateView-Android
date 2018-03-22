@@ -1,6 +1,5 @@
 package pe.startapps.calendardateview.extensions
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,8 @@ internal fun Calendar.copy(): Calendar {
     return calendar
 }
 
-internal fun Calendar.adjust(startDayOfWeek: Int = 1) = apply {
-    add(Calendar.DATE, -startDayOfWeek + 1)
+internal fun Calendar.startMonth() = apply {
+    set(Calendar.DAY_OF_MONTH, 1)
 }
 
 internal fun Calendar.startWeek(startDayOfWeek: Int = 1) = apply {
@@ -70,8 +69,26 @@ internal fun Calendar.dateByAddingMonths(months: Int): Calendar {
 internal fun Calendar.intervalOfWeeks(endDate: Calendar): Int {
     val interval = (endDate.midnight().timeInMillis - midnight().timeInMillis)
     val intervalDays = interval / (1000 * 60 * 60 * 24)
-    Log.e(";(", "$intervalDays $time ${endDate.time} ")
     return floor(intervalDays.toFloat() / 7).toInt()
+}
+
+internal fun Calendar.intervalOfMonth(endDate: Calendar): Int {
+
+    var intervalMonths = 0
+
+    if (timeInMillis < endDate.timeInMillis) {
+        while (timeInMillis < endDate.timeInMillis) {
+            add(Calendar.MONTH, 1)
+            intervalMonths++
+        }
+    } else if (timeInMillis > endDate.timeInMillis) {
+        while (timeInMillis > endDate.timeInMillis) {
+            add(Calendar.MONTH, -1)
+            intervalMonths--
+        }
+    }
+
+    return intervalMonths
 }
 
 // View Extensions
