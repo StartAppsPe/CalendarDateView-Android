@@ -21,7 +21,6 @@ class CalendarDateView : ViewPager {
 
     var calendarHeight: Int = 0
     var calendarItemHeight: Int = 0
-    var currentSelectPosition: IntArray = intArrayOf(0, 0, 0, 0)
 
     private var dayColor: Int = Color.GRAY
     private var selectedDayColor: Int = Color.LTGRAY
